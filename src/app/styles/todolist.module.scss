@@ -4,9 +4,9 @@
     justify-content: center; 
     align-items: center; 
     height: 100vh; 
-  }
-  
-  .todoListContainer {
+}
+
+.todoListContainer {
     width: 450px; 
     height: 446px; 
     border: 1px solid #EAECF0;
@@ -18,38 +18,64 @@
     flex-direction: column;
     gap: 24px;
     position: relative; 
-  }
-  
-  .taskSection,
-  .completedTasksSection {
+}
+
+.taskSection,
+.completedTasksSection {
     display: flex;
     flex-direction: column;
-  }
+}
 
-  .title {
+.title {
     font-size: 16px;
     font-weight: 400;
     text-align: center;
     color: #0000008A;
     opacity: 54%;
-  }
-  
-  .taskList,
-  .completedTasksList {
+}
+
+.taskList,
+.completedTasksList {
     display: flex;
     flex-direction: column;
     gap: 16px; 
-  }
-  
-  .buttonWrapper {
+}
+
+.buttonWrapper {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 24px; 
     width: 100%; 
-  }
-  
-  .buttonWrapper button {
+}
+
+.buttonWrapper button {
     width: 450px; 
-  }
-  
+}
+
+@media (max-width: 768px) {
+    .todoListWrapper {
+        padding: 0 16px; 
+        height: 50vh;
+    }
+    
+    .todoListContainer {
+        width: 100%; 
+        height: auto;
+        padding: 16px; 
+        gap: 16px; 
+    }
+    
+    .buttonWrapper {
+        margin-top: 16px; 
+    }
+    
+    .title {
+        font-size: 14px; 
+    }
+    
+    .taskList,
+    .completedTasksList {
+        gap: 12px; 
+    }
+}
