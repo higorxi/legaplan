@@ -3,12 +3,18 @@ import { useState } from "react";
 import Button from "../ui/button";
 import Task from "./task";
 import styles from '../styles/todolist.module.scss';
+import Modal from "./modal";
 
 export default function TodoList() {
   const [tasks] = useState<number>(3); 
   const [completedTasks] = useState<number>(1); 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
   return (
+    <>
     <div className={styles.todoListWrapper}>
       <div className={styles.todoListContainer}>
         <div className={styles.taskSection}>
@@ -33,8 +39,10 @@ export default function TodoList() {
         </div>
       </div>
       <div className={styles.buttonWrapper}>
-        <Button />
+        <Button onClick={openModal}/>
       </div>
     </div>
+    <Modal isOpen={isModalOpen} onClose={closeModal}  type='add'/>
+    </>
   );
 }
