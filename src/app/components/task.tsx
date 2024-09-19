@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from '../styles/task.module.scss';
 import { LuTrash } from 'react-icons/lu';
 import Modal from './modal';
@@ -13,13 +13,21 @@ interface TaskProps {
 export default function Task({ id, title }: TaskProps) {
   const [isChecked, setIsChecked] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const { deleteTask } = useTasks();
+  const { deleteTask, updateTaskStatus } = useTasks();
+
+  useEffect(() => {
+    const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+    const task = tasks.find((task: { id: string }) => task.id === id);
+    setIsChecked(task ? task.completed : false);
+  }, [id]);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
   const handleCheckboxChange = () => {
-    setIsChecked(!isChecked);
+    const newStatus = !isChecked;
+    setIsChecked(newStatus);
+    updateTaskStatus(id, newStatus);
   };
 
   const handleDelete = () => {

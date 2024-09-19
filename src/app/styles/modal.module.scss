@@ -9,6 +9,7 @@
     align-items: center;
     justify-content: center;
     backdrop-filter: blur(4px);
+    z-index: 2;
 }
 
 .modal_content {
@@ -54,6 +55,7 @@
         border: 1px solid #D7DDE9;
         border-radius: 4px;
         box-sizing: border-box;
+        color:#000000
     }
 }
 

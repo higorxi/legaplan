@@ -1,5 +1,5 @@
 "use client"
-import React, { createContext, useState, useContext, useEffect, ReactNode } from 'react';
+import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
 
 interface TaskType {
   id: string;
@@ -12,6 +12,7 @@ interface TaskContextType {
   completedTasks: TaskType[];
   addTask: (task: TaskType) => void;
   deleteTask: (taskId: string) => void;
+  updateTaskStatus: (taskId: string, completed: boolean) => void;
 }
 
 const TaskContext = createContext<TaskContextType | undefined>(undefined);
@@ -37,13 +38,27 @@ export function TaskProvider({ children }: { children: ReactNode }) {
   };
 
   const deleteTask = (taskId: string) => {
-    const updatedTasks = tasks.filter((task) => task.id !== taskId);
-    setTasks(updatedTasks);
+    const allTasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+    const updatedTasks = allTasks.filter((task: TaskType) => task.id !== taskId);
+  
+    localStorage.setItem('tasks', JSON.stringify(updatedTasks));
+    
+    setTasks(updatedTasks.filter((task: TaskType) => !task.completed));
+    setCompletedTasks(updatedTasks.filter((task: TaskType) => task.completed));
+  };
+
+  const updateTaskStatus = (taskId: string, completed: boolean) => {
+    const allTasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+    const updatedTasks = allTasks.map((task: TaskType) =>
+      task.id === taskId ? { ...task, completed } : task
+    );
+    setTasks(updatedTasks.filter((task: TaskType) => !task.completed));
+    setCompletedTasks(updatedTasks.filter((task: TaskType) => task.completed));
     localStorage.setItem('tasks', JSON.stringify(updatedTasks));
   };
 
   return (
-    <TaskContext.Provider value={{ tasks, completedTasks, addTask, deleteTask }}>
+    <TaskContext.Provider value={{ tasks, completedTasks, addTask, deleteTask, updateTaskStatus }}>
       {children}
     </TaskContext.Provider>
   );

@@ -29,7 +29,6 @@ export default function TodoList() {
               )}
             </div>
           </div>
-          {completedTasks.length > 0 && (
             <div className={styles.completedTasksSection}>
               <p className={styles.title}>Tarefas finalizadas</p>
               <div className={styles.completedTasksList}>
@@ -38,7 +37,6 @@ export default function TodoList() {
                 ))}
               </div>
             </div>
-          )}
         </div>
         <div className={styles.buttonWrapper}>
           <Button onClick={openModal}>Adicionar Tarefa</Button>

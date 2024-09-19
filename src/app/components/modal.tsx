@@ -18,6 +18,7 @@ export default function Modal({ isOpen, onClose, type, onConfirm }: ModalProps) 
   const handleAddTask = () => {
     if (taskTitle.trim()) {
       addTask({ id: Date.now().toString(), title: taskTitle, completed: false });
+      setTaskTitle('')
       onClose();
     }
   };
