@@ -1,0 +1,55 @@
+.todoListWrapper {
+    display: flex;
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh; 
+  }
+  
+  .todoListContainer {
+    width: 450px; 
+    height: 446px; 
+    border: 1px solid #EAECF0;
+    border-radius: 16px; 
+    padding: 32px; 
+    box-shadow: 0px 1px 2px 0px #1018280D;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    position: relative; 
+  }
+  
+  .taskSection,
+  .completedTasksSection {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .title {
+    font-size: 16px;
+    font-weight: 400;
+    text-align: center;
+    color: #0000008A;
+    opacity: 54%;
+  }
+  
+  .taskList,
+  .completedTasksList {
+    display: flex;
+    flex-direction: column;
+    gap: 16px; 
+  }
+  
+  .buttonWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 24px; 
+    width: 100%; 
+  }
+  
+  .buttonWrapper button {
+    width: 450px; 
+  }
+  
