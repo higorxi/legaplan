@@ -1,0 +1,18 @@
+// src/styles/button.module.scss
+
+.button {
+  background: linear-gradient(to right, #0796D3, #53C0F0);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s ease;
+
+
+}
+
+.secondary {
+  background-color: gray;
+}

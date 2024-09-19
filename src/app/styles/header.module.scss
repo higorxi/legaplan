@@ -1,0 +1,38 @@
+.header {
+    width: 95%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 2px solid #ccc;
+    box-sizing: border-box;
+    position: relative;
+  }
+  
+  .logo {
+    width: 150px;
+    height: 36px;
+  }
+  
+  .message {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 24px;
+    color: #333;
+    font-weight: 500;
+    font-family: Arial, Helvetica, sans-serif; /*Alterar fonte para a do Figma*/
+    white-space: nowrap; 
+  }
+  
+  .date {
+    font-size: 16px;
+    color: #666;
+    width: auto; 
+    height: auto; 
+    font-weight: 400;
+    text-align: right;
+    white-space: nowrap; 
+  }
+  
