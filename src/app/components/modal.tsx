@@ -1,14 +1,33 @@
-import React from "react";
-import Button from "../ui/button";
+"use client"
+import React, { useState } from 'react';
+import Button from '../ui/button';
 import styles from '../styles/modal.module.scss';
+import { useTasks } from '../contexts/TaskContexts';
 
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
-  type: 'add' | 'delete'; 
+  type: 'add' | 'delete';
+  onConfirm?: () => void; 
 }
 
-export default function Modal({ isOpen, onClose, type }: ModalProps) {
+export default function Modal({ isOpen, onClose, type, onConfirm }: ModalProps) {
+  const [taskTitle, setTaskTitle] = useState<string>('');
+  const { addTask } = useTasks();
+
+  const handleAddTask = () => {
+    if (taskTitle.trim()) {
+      addTask({ id: Date.now().toString(), title: taskTitle, completed: false });
+      onClose();
+    }
+  };
+
+  const handleDeleteTask = () => {
+    if (onConfirm) {
+      onConfirm();
+    }
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -21,7 +40,14 @@ export default function Modal({ isOpen, onClose, type }: ModalProps) {
           {type === 'add' ? (
             <div className={styles.form_group}>
               <label className={styles.task_title}>Título</label>
-              <input id="task-title" type="text" placeholder="Digite" className={styles.input} />
+              <input
+                id="task-title"
+                type="text"
+                placeholder="Digite"
+                className={styles.input}
+                value={taskTitle}
+                onChange={(e) => setTaskTitle(e.target.value)}
+              />
             </div>
           ) : (
             <p className={styles.confirmation_text}>Tem certeza que você deseja deletar essa tarefa?</p>
@@ -30,7 +56,10 @@ export default function Modal({ isOpen, onClose, type }: ModalProps) {
             <Button onClick={onClose} variant='secondary'>
               {type === 'add' ? 'Cancelar' : 'Cancelar'}
             </Button>
-            <Button variant={type === 'add' ? 'primary' : 'cancel'}>
+            <Button
+              variant={type === 'add' ? 'primary' : 'cancel'}
+              onClick={type === 'add' ? handleAddTask : handleDeleteTask}
+            >
               {type === 'add' ? 'Adicionar' : 'Deletar'}
             </Button>
           </div>

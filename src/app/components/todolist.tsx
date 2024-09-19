@@ -1,48 +1,50 @@
-"use client";
-import { useState } from "react";
-import Button from "../ui/button";
-import Task from "./task";
+"use client"
+import React, { useState } from 'react';
+import Button from '../ui/button';
+import Task from './task';
 import styles from '../styles/todolist.module.scss';
-import Modal from "./modal";
+import Modal from './modal';
+import { useTasks } from '../contexts/TaskContexts';
 
 export default function TodoList() {
-  const [tasks] = useState<number>(3); 
-  const [completedTasks] = useState<number>(1); 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { tasks, completedTasks } = useTasks();
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
   return (
     <>
-    <div className={styles.todoListWrapper}>
-      <div className={styles.todoListContainer}>
-        <div className={styles.taskSection}>
-          <p className={styles.title}>Suas tarefas de hoje</p>
-          <div className={styles.taskList}>
-            {[...Array(3)].map((_, index) => (
-              <Task key={index} />
-            ))}
+      <div className={styles.todoListWrapper}>
+        <div className={styles.todoListContainer}>
+          <div className={styles.taskSection}>
+            <p className={styles.title}>Suas tarefas de hoje</p>
+            <div className={styles.taskList}>
+              {tasks.length === 0 ? (
+                <p className={styles.noTasks}>Nenhuma tarefa encontrada.</p>
+              ) : (
+                tasks.map((task) => (
+                  <Task key={task.id} id={task.id} title={task.title} />
+                ))
+              )}
+            </div>
           </div>
-        </div>
-        <div className={styles.completedTasksSection}>
-          {completedTasks > 0 && (
-            <>
+          {completedTasks.length > 0 && (
+            <div className={styles.completedTasksSection}>
               <p className={styles.title}>Tarefas finalizadas</p>
               <div className={styles.completedTasksList}>
-                {[...Array(1)].map((_, index) => (
-                  <Task key={`completed-${index}`} />
+                {completedTasks.map((task) => (
+                  <Task key={task.id} id={task.id} title={task.title} />
                 ))}
               </div>
-            </>
+            </div>
           )}
         </div>
+        <div className={styles.buttonWrapper}>
+          <Button onClick={openModal}>Adicionar Tarefa</Button>
+        </div>
       </div>
-      <div className={styles.buttonWrapper}>
-        <Button onClick={openModal}/>
-      </div>
-    </div>
-    <Modal isOpen={isModalOpen} onClose={closeModal}  type='add'/>
+      <Modal isOpen={isModalOpen} onClose={closeModal} type='add' />
     </>
   );
 }
